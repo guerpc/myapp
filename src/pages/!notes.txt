@@ -1,0 +1,720 @@
+    const handleButtonClick = () => {
+        fetch(`http://localhost:3001/VetAccountInfo?VetAccountInfoTable=${vetAccTarget}`)
+            .then(res => res.json())
+            .then(data => setVAccQueryResult(data))
+            .catch(err => console.error(err));
+    };
+
+        //           <renderQueryResults/>
+    const ifUserPass = (data, userInputUsername, userInputPassword) => {
+        if (data) {
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                if (item.VetUserName === userInputUsername && item.VetPassword === userInputPassword) {
+                    setvid(item.VetLoginID);
+                    setvUsername(item.VetUserName);
+                    setvid(item.VetPassword);
+
+                }
+            }
+        }
+    };
+
+    
+    const handleSetVetInfo = (vetInfo) => {
+        setvid(vetInfo.VetLoginID);
+        setvLogin(vetInfo.VetPassword);
+        setvUsername(vetInfo.VetUserName);
+    };
+
+
+    
+    const handleUsernameChange = event => {
+        setUserInputUsername(event.target.value);
+    };
+    const handlePasswordChange = event => {
+        setUserInputPassword(event.target.value);
+    };
+
+
+        function renderQueryResults(vetTemp) {
+        if (vLoginQueryResult) {
+            return vLoginQueryResult.map(item => {
+                return (
+                    <div key={item.VetLoginID}>
+                        <p>item.VetLoginID: {item.VetLoginID}</p>
+                        <p>Username: {item.VetUserName}</p>
+                        <p>Password: {item.VetPassword}</p>
+                        <div>testing: {vetTemp.vUsername}</div>
+                    </div>
+                );
+            });
+        }
+    }
+
+        const updateVet = (item) => {
+        vetTemp.vid = item.VetLoginID;
+        vetTemp.vUsername = item.VetUserName;
+        vetTemp.vLogin = item.VetPassword;
+    }
+
+                    <div>
+                    <Link to="/AdminLoginPage" user={user} queryTarget={queryTarget}><Button
+                        color="primary"
+                        size="lg"
+                    >
+                        AdminLoginPage
+                    </Button></Link>
+                </div>
+
+
+                
+    function useVetInfo(vetLoginInfoTarget) {
+        const [vetInfo, setVetInfo] = useState(null);
+        useEffect(() => {
+            fetch(`http://localhost:3001/VetLoginInfo?VetLoginInfoTable=${vetLoginInfoTarget}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data) {
+                        setVetInfo(data);
+                    }
+                });
+        }, []);
+        return vetInfo;
+    }
+
+
+            const [vetInfo, setVetInfo] = useState(null);
+        if (selectedDropDown == null) {
+            return null
+        }
+        if (dropdownCondition === "Veterinarian") {
+            useEffect(() => {
+                fetch(`http://localhost:3001/VetLoginInfo?VetLoginInfoTable=${vetLoginInfoTarget}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data) {
+                            setVetInfo(data);
+                        }
+                    });
+            }, []);
+        }
+        else {
+            useEffect(() => {
+                fetch(`http://localhost:3001/UserLoginID?VetLoginInfoTable=${vetLoginInfoTarget}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data) {
+                            setVetInfo(data);
+                        }
+                    });
+            }, []);
+        }
+        return vetInfo;
+    }
+
+
+        const vetTemp = {
+        vid: "id in signin.js",
+        vUsername: "Username in signin.js",
+        vLogin: "Login in signin.js"
+    };
+
+
+        .container
+
+                        Column
+    DISPLAY USER:
+                    <p>user.vId - {user.vId}</p>
+                    <p>user.vPass - {user.vPass}</p>
+                    <p>user.vUsername - {user.vUsername}</p>
+                    <div>
+
+                    </div>
+
+
+
+                                        <div>
+
+                        <p>User ID: {user.vId}</p>
+                        <p>Username: {user.vUsername}</p>
+                        <p>Password: {user.vPass}</p>
+                    </div>
+
+
+                                <div>
+                {vetAppInfo ? (
+                    <div>
+
+                        <p>User ID: {user.vId}</p>
+                        <p>Username: {user.vUsername}</p>
+                        <p>Password: {user.vPass}</p>
+                    </div>
+                ) : (
+                    <p>Loading...</p>
+                )}
+            </div>
+
+
+            
+                    <div>The veiw apointments page</div>
+                    <div>DISPLAY USER: {user.type} ID- ({user.vId})Username- ({user.vUsername}) Password- ({user.vPass})</div>
+                    <div></div>
+                    <div>Password- {user.vPass}</div>
+                    <div>User's Password - {user.vPass}</div>
+
+
+
+
+                     <div>
+                    {vetInfo ? (
+                        <div>
+
+                            <p>Current: user.vId - {user.vId}</p>
+                            <p>Current: user.vUsername - {user.vUsername}</p>
+                            <p>Current: user.vPass - {user.vPass}</p>
+                            <p>Current: user.type - {user.type}</p>
+
+                        </div>
+                    ) : (
+                        <p>Loading...</p>
+                    )}
+                </div>
+
+
+
+                           <MyCalendar />
+            displaying selected date {clickedDate}
+
+
+             <div>
+                        <Link to="/VetLoginPage" user={user} queryTarget={queryTarget}><Button
+                            color="primary"
+                            size="lg"
+                        >
+                            VetLoginPage
+                        </Button></Link>
+                    </div>
+
+                      function aaaa(user, vetInfoTable) {
+
+        if (findVetIDinVetInfo(vetInfoTable) >= 0) {
+            user.otherUID = vetInfoTable[findVetIDinVetInfo(vetInfoTable)].otherUID;
+        }
+        return user;
+    }
+
+    const settingOtherUID = (vetInfoTable, user) => {
+        const matchingIndex = findVetIDinVetInfo(vetInfoTable, user);
+        if (matchingIndex === -1) {
+            console.log('No matching vet info found.');
+        } else {
+            user.otherUID = vetInfoTable[matchingIndex].VetID;
+        }
+        return vetInfoTable, user;
+    };
+  
+    function settingoUID(vetInfoTable, user) {
+        const matchingIndex = findVetIDinVetInfo(vetInfoTable);
+        if (matchingIndex != -1) {
+        user.otherUID = vetInfoTable[matchingIndex].VetID;
+        }
+    }
+                            {findVetIDinVetInfo(vetInfoTable, user)}
+                        {user.otherUID = settingUID(vetInfoTable, user)}
+
+
+                          function settingUID(vetInfoTable, petOwnerInfoTable, user)
+    {
+        const findVeIndex = findVetIDinVetInfo(vetInfoTable, user);
+        const findPOIndex = findpetOwnerIDinPetOwnerInfo(petOwnerInfoTable, user);
+
+        if (user.type === "Veterinarian") {
+            if (findVeIndex >= 0) {
+                user.otherUID = vetInfoTable[findVeIndex].VetID;
+            }
+            return user.otherUID;
+        } else        
+            if (findPOIndex >= 0) {
+            user.otherUID = petOwnerInfoTable[findPOIndex].UserID;
+        }
+        return user.otherUID;
+    }
+
+
+        const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch('http://localhost:3001/addVet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    VetUserName: event.target.elements.vetUsername.value,
+                    VetPassword: event.target.elements.vetPassword.value
+
+                })
+            });
+
+            const result = await response.json();
+            console.log(result);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+            const appointments = vetAppointmentInfoTable.filter(appointment => appointment.VetID === selectedItemTwo && appointment.Date.toLocaleDateString("en-GB").replace(/\//g, '-').toString() === stringDate);
+                    setStringDate(date.toLocaleDateString("en-GB").replace(/\//g, '-').toString())
+
+
+
+                        function filterByDayAndAvail(vetAppointmentInfoTable, selectedItemTwo, stringDate, vetScheduleInfoTable) {
+        const day = new Date(stringDate);
+        const dayOfWeek = day.getDay();
+        const dayOfWeekString = dayOfWeek.toLocaleString('en-US', { weekday: 'long' });
+
+        const appointments = showAllFutureAppNoRend(vetAppointmentInfoTable, selectedItemTwo)
+            .filter(appointment => appointment.VetID === selectedItemTwo && appointment.Date === stringDate)
+            .filter(appointment => {
+                const appointmentDate = new Date(appointment.Date);
+                const appointmentDayOfWeek = appointmentDate.getDay();
+                return appointmentDayOfWeek === dayOfWeek && appointment.VetID === selectedItemTwo.VetID;
+            });
+
+        return  (
+            <div>
+                <ul>
+                    {appointments.map(appointment => (
+                        <li key={appointment.AppointmentID}>
+                            {`Date: ${appointment.Date}, VetID: ${appointment.VetID}`}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+
+    }
+
+
+    
+        const hoursOfVet = vetScheduleInfoTable.filter(schedDay => schedDay.VetID == selectedItemTwo);
+        const day = new Date(stringDate);
+        const dayOfWeek = day.getDay();
+        const dayOfWeekString = dayOfWeek.toLocaleString('en-US', { weekday: 'long' });
+        const columns = Object.keys(vetScheduleInfoTable[0]);
+        const rightDay = dayOfWeek + 2;
+        const ind = columns[rightDay]; // get the index of the desired column
+        const dayOfHours = 24;
+        const arrayOfTimeSlots = Array(24).fill("false");
+        const [startHour, setStringDate] = useState("");
+        const [startPeriod, setStringDate] = useState("");
+        const [endHour, setStringDate] = useState("");
+        const [endPeriod, setendPeriod] = useState("");
+
+        const selDayString = hoursOfVet[ind]
+        const timeData = [startHour, startPeriod, endHour, endPeriod] = selDayString.split(":");
+
+            if (startPeriod == "pm") {
+                timeData[startHour] = startHour + 12;
+            } if (endPeriod == "pm") {
+                timeData[endHour] = endHour + 12;
+            }
+            const timeRanage = timeData[startHour] - timeData[endHour];
+            for (let i = 0; i < arrayOfTimeSlots.length; i++) {
+                if (i >= timeData[startHour] || i <= timeData[endOfHour])
+                    arrayOfTimeSlots[i] == "true";
+            }
+
+
+
+        return (
+            <div>
+                <ul>
+                    {hoursOfVet.map(schedDay => (
+                        <li key={schedDay.ScheduleID}>
+                            {`Date ${schedDay[ind] || "blank"}: `}
+                        </li>
+                    ))}
+                </ul>
+                {arrayOfTimeSlots.map((value, index) => (
+                    <div key={index}>
+                        {index}:00
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+
+
+    function showSelectedVetHours(selectedItemTwo, stringDate, vetScheduleInfoTable) {
+
+        const hoursOfVet = vetScheduleInfoTable.filter(schedDay => schedDay.VetID == selectedItemTwo);
+        const day = new Date(stringDate);
+        const dayOfWeek = day.getDay();
+        const dayOfWeekString = dayOfWeek.toLocaleString('en-US', { weekday: 'long' });
+        const columns = Object.keys(vetScheduleInfoTable[0]);
+        const rightDay = dayOfWeek + 2;
+        const ind = columns[rightDay]; // get the index of the desired column
+        const dayOfHours = 24;
+        const v = "false";
+        const arrayOfTimeSlots = Array(24).fill(v);
+        const startHour = 0;
+        const startPeriod = "";
+        const endHour = 0;
+        const endPeriod= "";
+
+        const selDayString = hoursOfVet.map(schedDay => schedDay[ind]);
+        const timeData = [startHour, startPeriod, endHour, endPeriod] = selDayString.split(":");
+
+        if (startPeriod == "pm") {
+            timeData[startHour] = startHour + 12;
+        } if (endPeriod == "pm") {
+            timeData[endHour] = endHour + 12;
+        }
+        const timeRanage = timeData[startHour] - timeData[endHour];
+        for (let i = 0; i < arrayOfTimeSlots.length; i++) {
+            if (i >= timeData[startHour] || i <= timeData[endOfHour]) {
+                arrayOfTimeSlots[i] = "true";
+            }
+        }
+
+
+
+
+
+
+        function showSelectedVetHours(selectedItemTwo, stringDate, vetScheduleInfoTable) {
+
+        const hoursOfVet = vetScheduleInfoTable.filter(schedDay => schedDay.VetID == selectedItemTwo);
+        const day = new Date(stringDate);
+        const dayOfWeek = day.getDay();
+        const dayOfWeekString = dayOfWeek.toLocaleString('en-US', { weekday: 'long' });
+        const columns = Object.keys(vetScheduleInfoTable[0]);
+        const rightDay = dayOfWeek + 2;
+        const ind = columns[rightDay]; // get the index of the desired column
+        const dayOfHours = 24;
+        const v = "false";
+        const arrayOfTimeSlots = Array(24).fill(v);
+        let startHour = 0;
+        let startPeriod = "";
+        let endHour = 0;
+        let endPeriod = "";
+
+        hoursOfVet.forEach(schedDay => {
+            const selDayString = schedDay[ind];
+            const timeData = selDayString.split(":");
+            startHour = timeData[0];
+            startPeriod = timeData[1];
+            endHour = timeData[2];
+            endPeriod = timeData[3];
+
+            if (startPeriod == "pm") {
+                startHour = parseInt(startHour) + 12;
+            } if (endPeriod == "pm") {
+                endHour = parseInt(endHour) + 12;
+            }
+            const timeRange = endHour - startHour;
+
+            for (let i = 0; i < arrayOfTimeSlots.length; i++) {
+                if (i >= startHour && i <= endHour) {
+                    arrayOfTimeSlots[i] = "true";
+                }
+            }
+        });
+
+
+
+        return (
+            <div>
+                <ul>
+                    {hoursOfVet.map(schedDay => (
+                        <li key={schedDay.ScheduleID}>
+                            {`Date ${schedDay[ind] || "blank"}: `}
+                        </li>
+                    ))}
+                </ul>
+                {arrayOfTimeSlots.map((value, index) => (
+                    <div key={index}>
+                        {index}:00: {arrayOfTimeSlots[index]}
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+
+
+
+         let count = 0;
+            for (let i = 0; i < arry.length; i++) {
+                if (arry[i] == "Avail") { 
+                    arrayOfAvails[count] = `${i}am ${i + 1}am`;
+                    count++;
+                }
+
+            }
+
+                                    arry[i] = "Avail";
+                        arrayOfAvails[count] = `${i}${startPeriod} - ${i + 1}${endPeriod}`;
+
+
+                        ///important
+                           function showSelectedVetHours(selectedItemTwo, stringDate, vetScheduleInfoTable, vetAppointmentInfoTable) {
+
+        const hoursOfVet = vetScheduleInfoTable.filter(schedDay => schedDay.VetID == selectedItemTwo);
+        const day = new Date(stringDate);
+        const dayOfWeek = day.getDay();
+        const dayOfWeekString = dayOfWeek.toLocaleString('en-US', { weekday: 'long' });
+        const columns = Object.keys(vetScheduleInfoTable[0]);
+        const rightDay = dayOfWeek + 2;
+        const ind = columns[rightDay]; // get the index of the desired column
+        const dayOfHours = 24;
+        const v = "false";
+        const arrayOfTimeSlots = Array(24).fill(v);
+        const arry = Array(24).fill(v);
+        const showArry = Array(24).fill(v);
+        const arrayOfAvails = Array(24).fill(v);
+        let startHour = 0;
+        let startPeriod = "";
+        let endHour = 0;
+        let endPeriod = "";
+        const appointments = vetAppointmentInfoTable.filter(appointment => appointment.VetID == selectedItemTwo
+            && appointment.Date == stringDate);
+        let count = 0;
+
+
+        hoursOfVet.forEach(schedDay => {
+            const selDayString = schedDay[ind];
+            const timeData = selDayString.split(":");
+            startHour = timeData[0];
+            startPeriod = timeData[1];
+            endHour = timeData[2];
+            endPeriod = timeData[3];
+
+            if (startPeriod == "pm") {
+                startHour = parseInt(startHour) + 12;
+            } if (endPeriod == "pm" && endHour != "12") {
+                endHour = parseInt(endHour) + 12;
+            }
+
+            for (let i = 0; i < arrayOfTimeSlots.length; i++) {
+                if (i >= startHour && i < endHour) {
+                    arrayOfTimeSlots[i] = "true";
+                    arry[i] = "Avail";
+                    arrayOfAvails[i] = `${i}${startPeriod} - ${i + 1}${endPeriod}`;
+
+                }
+            }
+
+        });
+        appointments.forEach(appointment => {
+            const timeData = appointment.Time.split(" ");
+            startHour = timeData[0];
+            startPeriod = timeData[1];
+            endHour = timeData[3];
+            endPeriod = timeData[4];
+            if (startPeriod == "pm") {
+                startHour = parseInt(startHour) + 12;
+            } if (endPeriod == "pm" && endHour != "12") {
+                endHour = parseInt(endHour) + 12;
+            }
+
+            //setting taken appointments
+            for (let i = 0; i < arry.length; i++) {
+                if (arrayOfTimeSlots[i] == "true") {
+                    if (i == startHour) {
+                        arry[i] = "Not avail";
+                        arrayOfAvails[i] = "false";
+                    }
+
+                }
+            }
+
+            /// trimming duplicate
+            for (let i = 0; i < arrayOfAvails.length; i++) {
+                if (arrayOfAvails[i] == arrayOfAvails[i - 1]) {
+                    arrayOfAvails[i] = 'false';
+                }
+            }
+
+        });
+
+
+        return (
+            <div>
+                <ul>
+                    {hoursOfVet.map(schedDay => (
+                        <li key={schedDay.ScheduleID}>
+                            {`Date ${schedDay[ind] || "blank"}: `}
+                        </li>
+                    ))}
+                </ul>
+                {arrayOfTimeSlots.map((value, index) => (
+                    <div key={index}>
+                        {index}:00: {arrayOfTimeSlots[index]}{ }
+                    </div>
+                ))}               {arry.map((value, index) => (
+                    <div key={index}>
+                        {"Time Available "}{index}:00: {arry[index]}{ }
+                    </div>
+                ))}
+
+                {arrayOfAvails.map((value, index) => (
+                    <div key={index}>
+                        {index}:00: {arrayOfAvails[index]}{ }
+                    </div>
+                ))}               {arrayOfAvails.map((value, index) => (
+                    <div key={index}>
+                        {"Time arrayOfAvails "}{index}:00: {arrayOfAvails[index]}{ }
+                    </div>
+                ))}
+                <div>
+                    <Dropdown isOpen={dropdownOpen} toggle={toggleDropdown}>
+                        <DropdownToggle caret style={{ color: "white" }}>
+                            {selDropItem || "Select an item"}
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            {arrayOfAvails.map((item, index) => (
+                                arrayOfAvails[index] != "false" && (
+                                    <DropdownItem key={index} onClick={() => handleDropdownSelect(item)}>
+                                        {item}
+                                    </DropdownItem>
+                                )
+                            ))}
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+            </div>
+        );
+    }
+
+
+    
+    setFormValues(Date = stringDate, Time = selDropItem, VetID = selectedItemTwo, UserID = user.otherUID,
+        PetID = selectedItem, AppointmentDesc = formValues.AppointDesc, Cancelled = false);
+
+
+
+
+
+
+
+
+
+         const [Date, setDate] = useState("");
+    const [Time, setTime] = useState("");
+    const [VetID, setVetID] = useState("");
+    const [UserID, setUserID] = useState("");
+    const [PetID, setPetID] = useState("");
+    const [AppointmentDesc, setAppointmentDesc] = useState("");
+    const Cancelled = false;
+
+
+
+    const handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        if (name === "AppointDesc") {
+            setAppointmentDesc(value);
+        }
+        if (name === "Date") {
+            setDate(stringDate);
+        }
+        if (name === "Time") {
+            setTime(selDropItem);
+        }
+        if (name === "VetID") {
+            setVetID(selectedItemTwo);
+        }
+        if (name === "UserID") {
+            setUserID(user.otherUID);
+        }
+        if (name === "PetID") {
+            setPetID(selectedItem);
+        }
+    };
+
+    const handleSubmitAppointment = async (event) => {
+        event.preventDefault();
+        {
+            try {
+                const response = await fetch('http://localhost:3001/addAppointment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Date: stringDate, Time: Time, VetID: VetID, UserID: UserID, PetID: PetID,
+                        AppointDesc: AppointmentDesc, Cancelled: Cancelled
+
+
+                    })
+
+                });
+
+                const result = await response.json();
+                console.log(result);
+
+
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+    };
+
+                            arrayOfAvails[i] = `${i} ${startPeriod} - ${i + 1} ${endPeriod}`;
+                                                arrayOfAvails[i] = `${i} ${startPeriod} - ${i + 1} ${endPeriod}`;
+
+
+                                                    {`${id} - ${petInfoTable.find((pet) => pet.PetID === id)?.PetName}`}
+
+
+
+
+
+
+
+                                                      const handleUpdatePetInfo = async (event) => {
+        inspID = selectedItem.toString();
+        inspWeight = petWeight.toString();
+        insPMed = petMedsUsed.toString();
+        insPNotes = petNotes.toString();
+        insPOut = petOutcome.toString();
+        insPRecom = petRecom.toString();
+        insPetRecDate = petRecordDate.toString();
+
+        event.preventDefault();
+        {
+            try {
+                const response = await fetch('http://localhost:3001/addPetRecords', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        PetID: inspID, PetWeight: inspWeight, PetMedsUsed: insPMed, PetNotes: insPNotes,
+                        PetOutcome: insPOut, PetRecom: insPRecom, PetRecordDate: insPetRecDate
+
+
+                    })
+
+                });
+
+                const result = await response.json();
+                console.log(result);
+
+
+            } catch (error) {
+                console.error(error);
+            }
+
+        }
+        navigate('/');
+
+    };
